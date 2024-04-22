@@ -17,7 +17,7 @@ jobs:
       GEMS_PATH: /tmp/bundle
 
     steps:
-      - uses: actions/setup-ruby@v1
+      - uses: actions/setup-ruby
         with:
           ruby-version: 2.7.0
 
