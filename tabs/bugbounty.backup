@@ -1,0 +1,38 @@
+---
+title: Ferreira's VDP | BBP History
+type: tags
+# All the Tags of posts.
+# v2.0
+# https://github.com/cotes2020/jekyll-theme-chirpy
+# © 2017-2019 Cotes Chung
+# MIT License
+---
+
+
+<div class="container mt-5">
+        <h2 class="text-white mb-4">Vulnerability Disclosure Programs</h2>
+        <div class="row purple-background">
+            <!-- VDP Items -->
+            <div class="col-md-6 col-lg-4 info">
+                <img src="/assets/img/redbull.jpg" alt="Red Bull">
+                <div class="company-name">Red Bull</div>
+                <p class="description">No specific vulnerabilities reported.</p>
+            </div>
+            <!-- Additional entries for VDP -->
+            <!-- List continues with all provided companies and their details -->
+        </div>
+    </div>
+
+<div class="container mt-5">
+        <h2 class="text-white mb-4">Bug Bounty Programs</h2>
+        <div class="row purple-background">
+            <!-- BBP Items -->
+            <div class="col-md-6 col-lg-4 info bg-light rounded" style="background-color: rgba(65, 65, 65, 0.3) !important;padding-top: 20px; padding-bottom: 20px;">
+                <img src="/assets/img/adobe.jpg" alt="Adobe">
+                <div class="company-name">Adobe</div>
+                <p class="description">20+ valid submissions.</p>
+            </div>
+            <!-- Additional entries for BBP -->
+            <!-- List continues with all provided companies and their details -->
+        </div>
+    </div>

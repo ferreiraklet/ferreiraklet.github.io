@@ -1,0 +1,77 @@
+---
+layout: page
+# The Home page layout
+# v2.0
+# https://github.com/cotes2020/jekyll-theme-chirpy
+# © 2017-2019 Cotes Chung
+# MIT Licensed
+---
+
+
+<div class="container-fluid my-7 rounded" style="background-color: rgba(65, 65, 65, 0.3) !important;">
+        <div class="row">
+            <div class="col-md-4 d-flex align-items-center">
+                <img src="/assets/img/sample/avatar.jpg" alt="Daniel Ferreira" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover;">
+            </div>
+            <div class="col-md-8">
+              <h1 class="display-4">Hi, I am <span style="color: purple;">Daniel Ferreira</span>!</h1>
+  
+              <p class="lead">I'm 18 years old and passionate about Information Security</p>
+                <hr class="my-4" style="border: 1px solid white;">
+                <p>Currently focused on Web Vulnerability Analysis and Exploitation, I am proactive, dynamic and patient. I am known as Ferreira, and I stand out in pentesting and bug bounty, with several achievements in the area.</p>
+                <div style="padding-top: 20px; padding-bottom: 20px;"> <!-- Ajuste o valor de 20px conforme necessário -->
+    <a href="https://www.linkedin.com/in/daniel-ferreira-8b204525a/" class="btn btn-outline-light btn-social"><i class="fab fa-linkedin"></i></a>
+    <a href="https://www.instagram.com/ferreiraklet" class="btn btn-outline-light btn-social"><i class="fab fa-instagram"></i></a>
+    <a href="https://github.com/ferreiraklet" class="btn btn-outline-light btn-social"><i class="fab fa-github"></i></a>
+    <a href="https://hackerone.com/fklet" class="btn btn-outline-light btn-social"><i class="fas fa-user-secret"></i></a>
+    <a href="https://bugcrowd.com/ferreira" class="btn btn-outline-light btn-social"><i class="fas fa-bug"></i></a>
+    <a href="https://app.intigriti.com/profile/ferreiraklet" class="btn btn-outline-light btn-social"><i class="fas fa-user-secret"></i></a>
+    <a href="https://www.youtube.com/@ferreiraklet" class="btn btn-outline-light btn-social"><i class="fab fa-youtube"></i></a>
+    <a href="https://twitter.com/ferreiraklet" class="btn btn-outline-light btn-social"><i class="fab fa-twitter"></i></a>      
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% assign pinned = site.posts | where_exp: "item", "item.pin == true"  %}
+{% assign default = site.posts | where_exp: "item", "item.pin != true"  %}
+{% assign posts = "" | split: "" %}
+
+<!-- Get pinned posts -->
+
+{% assign offset = paginator.page | minus: 1 | times: paginator.per_page %}
+{% assign pinned_num = pinned.size | minus: offset %}
+
+{% if pinned_num > 0 %}
+  {% for i in (offset..pinned.size) limit: pinned_num %}
+    {% assign posts = posts | push: pinned[i] %}
+  {% endfor %}
+{% else %}
+  {% assign pinned_num = 0 %}
+{% endif %}
+
+
+<!-- Get default posts -->
+
+{% assign default_beg = offset | minus: pinned.size %}
+
+{% if default_beg < 0 %}
+  {% assign default_beg = 0 %}
+{% endif %}
+
+{% assign default_num = paginator.posts | size | minus: pinned_num  %}
+{% assign default_end = default_beg | plus: default_num | minus: 1 %}
+
+{% if default_num > 0 %}
+  {% for i in (default_beg..default_end) %}
+    {% assign posts = posts | push: default[i] %}
+  {% endfor %}
+{% endif %}
+
+
+
+{% if paginator.total_pages > 0 %}
+  {% include post-paginator.html %}
+{% endif %}
+
+

@@ -1,0 +1,43 @@
+<blockquote>
+  <p>We have got informed that a hacker managed to get into our internal network after pivoting through the web platform that runs in public internet. He managed to bypass our small product stocks logging platform and then he got our costumer database file. We believe that only one of our costumers was targeted. Can you find out who the customer was?</p>
+</blockquote>
+
+<h1 id="task-overview">Task Overview</h1>
+
+<ul>
+  <li>1</li>
+  <li>2</li>
+  <li>3
+    <h2 id="initial-analysis">Initial Analysis</h2>
+  </li>
+</ul>
+
+<p>Looking over the protocol hierarchy we see that a majority of the network traffic occurs over the TCP, in particular HTTP and an unreckognised Data.</p>
+
+<p>Therefore, lets take a look at what WireShark did not categorise.</p>
+
+<p><img src="/assets/img/Posts/MarketDump/protocol.png" alt="protocol" /></p>
+
+<p>Applying the filter to the identified protocol, we look at the conversations taking place:</p>
+
+<p><img src="/assets/img/Posts/MarketDump/convo.png" alt="conversations" /></p>
+
+<p>We see that there was some traffic between the host <code class="language-plaintext highlighter-rouge">10.0.2.3</code> and <code class="language-plaintext highlighter-rouge">10.0.2.15</code>. Lets take a look a further look.</p>
+
+<h2 id="host-compromise-tcp">Host Compromise (TCP)</h2>
+
+<p>The first bit of traffic shows some ping requests between the aforementioned hosts. Proceeding this the unidentified host <code class="language-plaintext highlighter-rouge">10.0.2.15:34976</code> establishes a connection to <code class="language-plaintext highlighter-rouge">10.0.2.3:9999</code>.</p>
+
+<p>Following the TCP stream we can see that we have located the C2, with the adversary attempting to locate the customer database file.
+<img src="/assets/img/Posts/MarketDump/tcpstream1.png" alt="tcpstream1" /></p>
+
+<p>After quickly scanning through it was immediately obvious which customer was targetted and I looked for further C2 between the machines. With no luck I took another look at the output and noticed:</p>
+
+<p><img src="/assets/img/Posts/MarketDump/tcpstream2.png" alt="tcpstream2" /></p>
+
+<p>Here we can see on the customer numbers has some encoding or encryption. I wasn’t familiar immediatly  so I utilise <code class="language-plaintext highlighter-rouge">CyberChef.com</code> and the magic wand predicts Base58:</p>
+
+<p><img src="/assets/img/Posts/MarketDump/flag.png" alt="flag" /></p>
+
+<p>And we have the flag! BQ</p>
+

@@ -1,0 +1,141 @@
+<!--
+  The Head
+  v2.0
+  https://github.com/cotes2020/jekyll-theme-chirpy
+  © 2017-2019 Cotes Chung
+  MIT License
+-->
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+  <style>
+
+.purple-background {
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .info {
+            text-align: center;
+            margin-bottom: 15px;
+            background-color: rgba(65, 65, 65, 0.3) !important;
+            padding-top: 20px; 
+            padding-bottom: 20px;
+        }
+        .info img {
+            width: 50px; /* Ícones pequenos */
+            height: auto;
+            margin: 0 auto 5px; /* Espaço abaixo da imagem */
+        }
+        .company-name {
+            font-size: 1.2rem; /* Nome da empresa maior */
+            color: purple;
+        }
+        .description {
+            font-size: 0.85rem; /* Descrição menor */
+            color: #DDD;
+        }
+
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: calc(var(--nav-width) + var(--gap) * 2);
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+    line-height: var(--header-height);
+}
+  .nav-link {
+    color: white !important; /* Cor branca para todos os itens */
+    text-decoration: none !important; /* Remover qualquer sublinhado padrão */
+    font-size: 18px; /* Aumentar o tamanho da fonte */
+    font-family: 'Source Sans Pro', 'Microsoft Yahei', sans-serif;
+    padding: 12px 15px; /* Aumentar o espaçamento ao redor dos itens */
+    position: relative; /* Posição relativa para o posicionamento do pseudo-elemento */
+  }
+  .nav-link::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 3px; /* Grossura do sublinhado */
+    background-color: purple; /* Cor roxa para o sublinhado */
+    position: absolute;
+    left: 0;
+    bottom: -3px; /* Espaçamento entre a palavra e o sublinhado */
+    opacity: 0; /* Inicialmente invisível */
+    transition: opacity 0.3s;
+  }
+  .nav-link:hover::after, .nav-link:focus::after, .nav-link.active::after {
+    opacity: 1; /* Tornar visível ao passar o mouse, focar ou ser ativo */
+  }
+  .container-fluid {
+    max-widht: calc(var(--nav-widht) + var(--gap) * 2);
+    padding-right: 50px; /* Aumentar o padding à direita para afastar os itens do canto */
+  }
+</style>
+
+  <title>
+  {%- unless page.layout == "home" -%}
+    {{ page.title | append: " | "}}
+  {%- endunless -%}
+    {{ site.title }}
+  </title>
+
+  {% seo title=false %}
+
+  {% include favicons.html %}
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+
+  <!-- GA -->
+  {% if jekyll.environment == 'production' %}
+    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin="use-credentials">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin="anonymous">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+    {% if site.google_analytics.pv.proxy_url and site.google_analytics.pv.enabled %}
+      <link rel="preconnect" href="{{ site.google_analytics.pv.proxy_url }}" crossorigin="use-credentials">
+      <link rel="dns-prefetch" href="{{ site.google_analytics.pv.proxy_url }}">
+    {% endif %}
+  {% endif %}
+
+  <!-- jsDelivr CDN -->
+  <link rel="preconnect" href="cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="cdn.jsdelivr.net">
+
+  <!-- Bootstrap -->
+  <link rel="preload" as="style"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha256-LA89z+k9fjgMKQ/kq4OO2Mrf8VltYml/VES+Rg0fh20=" crossorigin>
+
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha256-LA89z+k9fjgMKQ/kq4OO2Mrf8VltYml/VES+Rg0fh20=" crossorigin="anonymous">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.11.2/css/all.min.css"
+    integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ="
+    crossorigin="anonymous">
+
+  {% include css-selector.html %}
+
+  <!-- JavaScripts -->
+
+  <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/jquery@3.4.1"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous">
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/combine/npm/popper.js@1.15.0,npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" async></script>
+
+  {% include js-selector.html %}
+
+</head>

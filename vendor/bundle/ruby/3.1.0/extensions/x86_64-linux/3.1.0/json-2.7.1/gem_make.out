@@ -1,0 +1,13 @@
+current directory: /home/klet/Desktop/ferreiraklet.github.io/vendor/bundle/ruby/3.1.0/gems/json-2.7.1/ext/json
+/usr/bin/ruby3.1 -I /usr/lib/ruby/vendor_ruby -r ./siteconf20240301-11009-12opf1.rb extconf.rb
+creating Makefile
+
+current directory: /home/klet/Desktop/ferreiraklet.github.io/vendor/bundle/ruby/3.1.0/gems/json-2.7.1/ext/json
+make DESTDIR\= clean
+
+current directory: /home/klet/Desktop/ferreiraklet.github.io/vendor/bundle/ruby/3.1.0/gems/json-2.7.1/ext/json
+make DESTDIR\=
+make: Nothing to be done for 'all'.
+
+current directory: /home/klet/Desktop/ferreiraklet.github.io/vendor/bundle/ruby/3.1.0/gems/json-2.7.1/ext/json
+make DESTDIR\= install

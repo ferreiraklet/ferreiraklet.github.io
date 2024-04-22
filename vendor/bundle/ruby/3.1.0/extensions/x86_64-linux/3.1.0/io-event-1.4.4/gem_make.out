@@ -1,0 +1,31 @@
+current directory: /home/klet/Desktop/ferreiraklet.github.io/vendor/bundle/ruby/3.1.0/gems/io-event-1.4.4/ext
+/usr/bin/ruby3.1 -I /usr/lib/ruby/vendor_ruby -r ./siteconf20240301-11009-bc5y4c.rb extconf.rb
+checking for rb_ext_ractor_safe()... yes
+checking for &rb_fiber_transfer()... yes
+checking for -luring... no
+checking for sys/epoll.h... yes
+checking for sys/event.h... no
+checking for sys/eventfd.h... yes
+checking for rb_io_descriptor()... yes
+checking for &rb_process_status_wait()... no
+checking for rb_fiber_current()... yes
+checking for &rb_fiber_raise()... yes
+checking for epoll_pwait2()... yes
+checking for ruby/io/buffer.h... yes
+creating extconf.h
+creating Makefile
+
+current directory: /home/klet/Desktop/ferreiraklet.github.io/vendor/bundle/ruby/3.1.0/gems/io-event-1.4.4/ext
+make DESTDIR\= clean
+
+current directory: /home/klet/Desktop/ferreiraklet.github.io/vendor/bundle/ruby/3.1.0/gems/io-event-1.4.4/ext
+make DESTDIR\=
+compiling ./io/event/selector/epoll.c
+compiling ./io/event/event.c
+compiling ./io/event/interrupt.c
+compiling ./io/event/selector/selector.c
+linking shared-object IO_Event.so
+
+current directory: /home/klet/Desktop/ferreiraklet.github.io/vendor/bundle/ruby/3.1.0/gems/io-event-1.4.4/ext
+make DESTDIR\= install
+/usr/bin/install -c -m 0755 IO_Event.so ./.gem.20240301-11009-cymdx6

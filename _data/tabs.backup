@@ -1,0 +1,46 @@
+#  The tab data.
+#  v2.1
+#  https://github.com/cotes2020/jekyll-theme-chirpy
+#  © 2020 Cotes Chung
+#  MIT Licensed
+
+-
+  name: Home
+  icon: "fas fa-home"
+-
+  name: Hacking
+  icon: "fas fa-stream"
+  path: tabs
+  url: hacking
+-
+  name: "Bug Bounty"
+  icon: "fas fa-tags"
+  path: tabs
+  url: bugbounty
+-
+  name: "Acknowledgments"
+  path: tabs
+  url: acknowledgments
+  icon: "fas fa-archive"
+
+-
+  name: Inicio
+  icon: "fas fa-home"
+  path: pt
+-
+  name: Posts
+  icon: "fas fa-stream"
+  path: pt/tabs
+  url: hacking
+-
+  name: "Bug Bounty Hunting"
+  icon: "fas fa-tags"
+  path: pt/tabs
+  url: bugbounty
+-
+  name: "Reconhecimentos"
+  path: pt/tabs
+  url: acknowledgments
+  icon: "fas fa-archive"
+
+-
