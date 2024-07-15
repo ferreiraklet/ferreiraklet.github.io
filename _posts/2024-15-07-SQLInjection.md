@@ -90,6 +90,8 @@ What we got:
 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''Approved'')  ORDER BY CAST(STATUS AS CHAR) ASC, APPROVED_DATE DESC' at line 20, errors: [{errorType: (SYSTEM_ERROR, System Error), errorCode: (030003, System Error), message: Dao Error}]}",
 ```
 
+<img src="/assets/img/Posts/singlequote.png">
+
 Perfect!, we now know for sure it is vulnerable to SQL Injection.
 
 ---
