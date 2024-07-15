@@ -6,7 +6,7 @@ tags: [bugbounty]
 image: /assets/img/Posts/sqli.png
 ---
 
-# Here is how I exploited a unusual SQL Injection Path Based and got rewarded with $$$$ bounty 
+# Here is how I exploited a unusual SQL Injection Path Based and got rewarded with bounty 
 
 
 First of all, here are some sections that will be covered in this article,
