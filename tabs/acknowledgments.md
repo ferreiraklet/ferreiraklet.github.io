@@ -14,3 +14,6 @@ type: archives
 
 
 * Vrt International ( 2x SSRF ) - https://www.vrtinternational.com/hall-of-fame
+
+
+* Oracle On-Line Presence Security Contributors 2024 - https://www.oracle.com/security-alerts/cpujul2024.html
