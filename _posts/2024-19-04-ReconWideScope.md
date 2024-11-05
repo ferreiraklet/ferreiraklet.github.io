@@ -6,4 +6,4 @@ tags: [bugbounty]
 image: /assets/img/Posts/reconwide.png
 ---
 
-# Coming Soon
+# Coming Soon :)
