@@ -1,0 +1,37 @@
+current directory: /home/klet/ferreiraklet.github.io/vendor/bundle/ruby/3.2.0/gems/io-event-1.7.3/ext
+/usr/bin/ruby extconf.rb
+checking for rb_ext_ractor_safe()... yes
+checking for &rb_fiber_transfer()... yes
+checking for -luring... yes
+checking for liburing.h... yes
+checking for sys/epoll.h... yes
+checking for sys/event.h... no
+checking for sys/wait.h... yes
+checking for sys/eventfd.h... yes
+checking for rb_io_descriptor()... yes
+checking for &rb_process_status_wait()... no
+checking for rb_fiber_current()... yes
+checking for &rb_fiber_raise()... yes
+checking for epoll_pwait2()... yes
+checking for ruby/io/buffer.h... yes
+creating extconf.h
+creating Makefile
+
+current directory: /home/klet/ferreiraklet.github.io/vendor/bundle/ruby/3.2.0/gems/io-event-1.7.3/ext
+make DESTDIR\= sitearchdir\=./.gem.20241105-53147-15xt58 sitelibdir\=./.gem.20241105-53147-15xt58 clean
+
+current directory: /home/klet/ferreiraklet.github.io/vendor/bundle/ruby/3.2.0/gems/io-event-1.7.3/ext
+make DESTDIR\= sitearchdir\=./.gem.20241105-53147-15xt58 sitelibdir\=./.gem.20241105-53147-15xt58
+compiling ./io/event/event.c
+compiling ./io/event/selector/selector.c
+compiling ./io/event/selector/uring.c
+compiling ./io/event/selector/epoll.c
+compiling ./io/event/interrupt.c
+linking shared-object IO_Event.so
+
+current directory: /home/klet/ferreiraklet.github.io/vendor/bundle/ruby/3.2.0/gems/io-event-1.7.3/ext
+make DESTDIR\= sitearchdir\=./.gem.20241105-53147-15xt58 sitelibdir\=./.gem.20241105-53147-15xt58 install
+/usr/bin/install -c -m 0755 IO_Event.so ./.gem.20241105-53147-15xt58
+
+current directory: /home/klet/ferreiraklet.github.io/vendor/bundle/ruby/3.2.0/gems/io-event-1.7.3/ext
+make DESTDIR\= sitearchdir\=./.gem.20241105-53147-15xt58 sitelibdir\=./.gem.20241105-53147-15xt58 clean
