@@ -1,0 +1,18 @@
+current directory: /home/cl0v1s/ferreiraklet.github.io/vendor/bundle/ruby/3.4.0/gems/racc-1.8.1/ext/racc/cparse
+/usr/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /home/cl0v1s/ferreiraklet.github.io/vendor/bundle/ruby/3.4.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20260608-269598-wbwm8o sitelibdir\=./.gem.20260608-269598-wbwm8o clean
+
+current directory: /home/cl0v1s/ferreiraklet.github.io/vendor/bundle/ruby/3.4.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20260608-269598-wbwm8o sitelibdir\=./.gem.20260608-269598-wbwm8o
+compiling cparse.c
+linking shared-object racc/cparse.so
+
+current directory: /home/cl0v1s/ferreiraklet.github.io/vendor/bundle/ruby/3.4.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20260608-269598-wbwm8o sitelibdir\=./.gem.20260608-269598-wbwm8o install
+/usr/bin/install -c -m 0755 cparse.so ./.gem.20260608-269598-wbwm8o/racc
+
+current directory: /home/cl0v1s/ferreiraklet.github.io/vendor/bundle/ruby/3.4.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20260608-269598-wbwm8o sitelibdir\=./.gem.20260608-269598-wbwm8o clean
