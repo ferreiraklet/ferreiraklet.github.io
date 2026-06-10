@@ -1,0 +1,57 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - link "avatar Ferreiraklet" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - img "avatar" [ref=e5]
+        - generic [ref=e6]: Ferreiraklet
+      - list [ref=e8]:
+        - listitem [ref=e9]:
+          - link " Home" [ref=e10] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e11]: 
+            - text: Home
+        - listitem [ref=e12]:
+          - link " Hacking" [ref=e13] [cursor=pointer]:
+            - /url: /tabs/hacking/
+            - generic [ref=e14]: 
+            - text: Hacking
+        - listitem [ref=e15]:
+          - link " Bug Bounty" [ref=e16] [cursor=pointer]:
+            - /url: /tabs/bugbounty/
+            - generic [ref=e17]: 
+            - text: Bug Bounty
+        - listitem [ref=e18]:
+          - link " Acknowledgments" [ref=e19] [cursor=pointer]:
+            - /url: /tabs/acknowledgments/
+            - generic [ref=e20]: 
+            - text: Acknowledgments
+  - generic [ref=e21]:
+    - generic [ref=e22]:
+      - generic [ref=e23]:
+        - generic [ref=e27]:
+          - paragraph [ref=e28]: Sorry, we've misplaced that URL or it's pointing to something that doesn't exist.
+          - paragraph [ref=e29]:
+            - link "Head back Home" [ref=e30] [cursor=pointer]:
+              - /url: /
+            - text: to try finding it again, or search for it on the
+            - link "Archives page" [ref=e31] [cursor=pointer]:
+              - /url: /tabs/archives
+            - text: .
+        - contentinfo [ref=e33]:
+          - generic [ref=e34]:
+            - paragraph [ref=e36]:
+              - text: © 2026
+              - link "ferreiraklet" [ref=e37] [cursor=pointer]:
+                - /url: https://twitter.com/ferreiraklet
+              - text: . Some rights reserved.
+            - paragraph [ref=e39]:
+              - text: Powered by
+              - link "Jekyll" [ref=e40] [cursor=pointer]:
+                - /url: https://jekyllrb.com
+              - text: with
+              - link "Chirpy" [ref=e41] [cursor=pointer]:
+                - /url: https://github.com/cotes2020/jekyll-theme-chirpy/
+              - text: theme.
+      - text: "# # # # # #"
+    - text: 

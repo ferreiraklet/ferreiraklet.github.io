@@ -8,30 +8,124 @@ layout: page
 ---
 
 
-<div class="container-fluid my-7 rounded" style="background-color: rgba(65, 65, 65, 0.3) !important;">
-        <div class="row">
-            <div class="col-md-4 d-flex align-items-center">
-                <img src="/assets/img/sample/avatar.jpg" alt="Daniel Ferreira" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover;">
-            </div>
-            <div class="col-md-8">
-              <h1 class="display-4">Hi, I am <span style="color: purple;">Daniel Ferreira</span>!</h1>
-  
-              <p class="lead">I'm 19 years old and passionate about Information Security</p>
-                <hr class="my-4" style="border: 1px solid white;">
-                <p>Currently focused on Web Vulnerability Analysis and Exploitation, I am proactive, dynamic and patient. I am known as Ferreira, and I stand out in pentesting and bug bounty, with several achievements in the area.</p>
-                <div style="padding-top: 20px; padding-bottom: 20px;"> <!-- Ajuste o valor de 20px conforme necessário -->
-    <a href="https://www.linkedin.com/in/daniel-ferreira-8b204525a/" class="btn btn-outline-light btn-social"><i class="fab fa-linkedin"></i></a>
-    <a href="https://www.instagram.com/ferreiraklet" class="btn btn-outline-light btn-social"><i class="fab fa-instagram"></i></a>
-    <a href="https://github.com/ferreiraklet" class="btn btn-outline-light btn-social"><i class="fab fa-github"></i></a>
-    <a href="https://hackerone.com/fklet" class="btn btn-outline-light btn-social"><i class="fas fa-user-secret"></i></a>
-    <a href="https://bugcrowd.com/ferreira" class="btn btn-outline-light btn-social"><i class="fas fa-bug"></i></a>
-    <a href="https://app.intigriti.com/profile/ferreiraklet" class="btn btn-outline-light btn-social"><i class="fas fa-user-secret"></i></a>
-    <a href="https://www.youtube.com/@ferreiraklet" class="btn btn-outline-light btn-social"><i class="fab fa-youtube"></i></a>
-    <a href="https://twitter.com/ferreiraklet" class="btn btn-outline-light btn-social"><i class="fab fa-twitter"></i></a>      
-                </div>
-            </div>
-        </div>
+<canvas id="particle-canvas"></canvas>
+
+<div class="hero-section">
+  <div class="hero-inner">
+
+    <!-- Left column: avatar + social -->
+    <div class="profile-col">
+      <div class="profile-avatar-wrap">
+        <div class="profile-ring profile-ring-2"></div>
+        <div class="profile-ring profile-ring-1"></div>
+        <img src="/assets/img/sample/avatar.jpg" alt="Daniel Ferreira" class="profile-avatar">
+      </div>
+      <h2 class="profile-name">Daniel Ferreira</h2>
+      <div class="profile-handle">@ferreiraklet</div>
+      <div class="profile-tags">
+        <span class="profile-tag"><i class="fas fa-crosshairs"></i> Bug Hunter</span>
+        <span class="profile-tag"><i class="fas fa-user-ninja"></i> Pentester</span>
+        <span class="profile-tag"><i class="fas fa-shield-alt"></i> InfoSec</span>
+      </div>
+      <div class="profile-social">
+        <a href="https://github.com/ferreiraklet" class="psoc" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://twitter.com/ferreiraklet" class="psoc" title="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.linkedin.com/in/daniel-ferreira-8b204525a/" class="psoc" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://hackerone.com/ferreiraklet_" class="psoc" title="HackerOne"><i class="fas fa-user-secret"></i></a>
+        <a href="https://bugcrowd.com/ferreira" class="psoc" title="Bugcrowd"><i class="fas fa-bug"></i></a>
+        <a href="https://app.intigriti.com/profile/ferreiraklet" class="psoc" title="Intigriti"><i class="fas fa-shield-alt"></i></a>
+        <a href="https://www.youtube.com/@ferreiraklet" class="psoc" title="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="https://www.instagram.com/ferreiraklet" class="psoc" title="Instagram"><i class="fab fa-instagram"></i></a>
+      </div>
     </div>
+
+    <!-- Right column: headline + text + CTA -->
+    <div class="hero-text-side">
+      <div class="hero-eyebrow"><span class="hero-eyebrow-dot"></span>Security Researcher</div>
+      <h1 class="hero-headline">Breaking things<br>to <span class="hl">secure the web.</span></h1>
+      <p class="hero-body-text">Bug hunter specializing in web vulnerabilities — RCE, SSRF, SQL Injection, and beyond. Active across HackerOne, Bugcrowd, and major VDP programs worldwide.</p>
+      <div class="hero-cta-row">
+        <a href="/tabs/hacking/" class="btn-primary-orange"><i class="fas fa-stream"></i> Read Articles</a>
+        <a href="/tabs/bugbounty/" class="btn-ghost-orange"><i class="fas fa-bug"></i> Bug Bounty</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat-item">
+    <span class="stat-num">1000+</span>
+    <span class="stat-label">Reports</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">150+</span>
+    <span class="stat-label">Programs</span>
+  </div>
+</div>
+
+<script>
+(function () {
+  var canvas = document.getElementById('particle-canvas');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var pts   = [];
+  var mouse = { x: -9999, y: -9999 };
+  var N = 90, maxD = 130, mouseR = 160;
+
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  document.addEventListener('mousemove', function (e) {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  });
+  document.addEventListener('mouseleave', function () { mouse.x = -9999; mouse.y = -9999; });
+
+  for (var i = 0; i < N; i++) {
+    pts.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+               vx: (Math.random() - 0.5) * 0.45, vy: (Math.random() - 0.5) * 0.45,
+               r: Math.random() * 1.8 + 0.8 });
+  }
+
+  function tick() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (var i = 0; i < N; i++) {
+      var p = pts[i];
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, 6.283);
+      ctx.fillStyle = 'rgba(240,112,32,0.68)';
+      ctx.fill();
+
+      for (var j = i + 1; j < N; j++) {
+        var q = pts[j], dx = p.x - q.x, dy = p.y - q.y, d = Math.sqrt(dx*dx + dy*dy);
+        if (d < maxD) {
+          ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y);
+          ctx.strokeStyle = 'rgba(240,112,32,' + ((1 - d/maxD) * 0.22) + ')';
+          ctx.lineWidth = 0.7; ctx.stroke();
+        }
+      }
+
+      var mdx = p.x - mouse.x, mdy = p.y - mouse.y, md = Math.sqrt(mdx*mdx + mdy*mdy);
+      if (md < mouseR) {
+        ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(mouse.x, mouse.y);
+        ctx.strokeStyle = 'rgba(240,112,32,' + ((1 - md/mouseR) * 0.6) + ')';
+        ctx.lineWidth = 1; ctx.stroke();
+      }
+
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > canvas.width)  p.vx *= -1;
+      if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+    }
+    requestAnimationFrame(tick);
+  }
+  tick();
+}());
+</script>
 
 {% assign pinned = site.posts | where_exp: "item", "item.pin == true"  %}
 {% assign default = site.posts | where_exp: "item", "item.pin != true"  %}

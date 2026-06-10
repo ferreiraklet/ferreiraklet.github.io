@@ -45,59 +45,41 @@ type: articles
 
 
 
-<div id="post-list">
+<div class="hacking-section-header">
+  <h1><i class="fas fa-stream mr-2" style="color:#f07020;font-size:0.95rem;"></i>Articles &amp; Papers</h1>
+  <div class="hacking-header-line"></div>
+  <span class="post-count-badge">{{ site.posts | size }} posts</span>
+</div>
 
+<div class="post-card-grid">
 {% for post in site.posts %}
-
-  <div class="post-preview p-3 mb-2 bg-light rounded floating-box" onclick="javascript:location.href='{{ post.url | relative_url }}'" style="background-color: rgba(65, 65, 65, 0.3) !important;">
-    <div class="d-flex justify-content-between pr-xl-2">
-    <article class="entry-header">
-    <header class="entry-header">
-
-      <h2 class="entry-hint-parent">{{ post.title }}</h2>
-      </header>
-      <footer class="entry-footer">Paper</footer>
-      <a class="entry-link" href="{{ post.url | relative_url }}"></a>
-      </article>
-      {% if post.pin == true %}
-        <i class="fas fa-thumbtack fa-fw text-muted mt-1 ml-2 mt-xl-2" data-toggle="tooltip" data-placement="left"
-        title="Pinned"></i>
-      {% endif %}
+  <a class="post-card" href="{{ post.url | relative_url }}">
+    {% if post.image %}
+    <div class="post-card-img-wrap">
+      <img src="{{ post.image }}" alt="{{ post.title }}">
+      <div class="post-card-img-overlay"></div>
     </div>
-    <br>
-    <div class="post-content">
-      <div class="post-img-cnt" style="text-align: center">
-        <a href="{{ post.url | relative_url }}">
-          <img src="{{post.image}}" alt="{{post.title}} image" class="post-img rounded" width="500" align="center" />
-          <br>
-        </a>
-      </div>
-      <div class="floating-box">
-        {% include no-linenos.html content=post.content %}
-        {{ content | markdownify | strip_html | truncate: 200 }}
-      </div>
+    {% else %}
+    <div class="post-card-img-wrap" style="background: linear-gradient(135deg, rgba(200,80,16,0.15), rgba(25,25,32,1)); height:80px;">
+      <div class="post-card-img-overlay"></div>
     </div>
-
-    <div class="post-meta text-muted">
-      <!-- posted date -->
-      <i class="far fa-clock fa-fw"></i>
-      {% include timeago.html date=post.date tooltip=true %}
-
-      <!-- page views -->
-      {% if site.google_analytics.pv.enabled %}
-      <i class="far fa-eye fa-fw"></i>
-      <span id="pv_{{-post.title-}}" class="pageviews">
-        <i class="fas fa-spinner fa-spin fa-fw"></i>
+    {% endif %}
+    <div class="post-card-content {% unless post.image %}post-card-no-image{% endunless %}">
+      <div class="post-card-cat">
+        {% if post.categories.size > 0 %}{{ post.categories | first }}{% else %}Research{% endif %}
+        {% if post.pin == true %}&nbsp;<i class="fas fa-thumbtack" style="font-size:0.6rem;opacity:0.6;"></i>{% endif %}
+      </div>
+      <div class="post-card-title">{{ post.title }}</div>
+      <div class="post-card-excerpt">{{ post.content | strip_html | truncate: 110 }}</div>
+    </div>
+    <div class="post-card-footer">
+      <span class="post-card-date">
+        <i class="far fa-clock"></i>
+        {% include timeago.html date=post.date %}
       </span>
-      {% endif %}
+      <span class="post-card-arrow"><i class="fas fa-arrow-right"></i></span>
     </div>
-  </div> <!-- .post-review -->
-
+  </a>
 {% endfor %}
-
-</div> <!-- #post-list -->
-
-{% if paginator.total_pages > 0 %}
-  {% include post-paginator.html %}
-{% endif %}
+</div>
 

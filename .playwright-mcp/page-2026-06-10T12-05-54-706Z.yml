@@ -1,0 +1,129 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - link "avatar Ferreiraklet" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - img "avatar" [ref=e5]
+        - generic [ref=e6]: Ferreiraklet
+      - list [ref=e8]:
+        - listitem [ref=e9]:
+          - link " Home" [ref=e10] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e11]: 
+            - text: Home
+        - listitem [ref=e12]:
+          - link " Hacking" [ref=e13] [cursor=pointer]:
+            - /url: /tabs/hacking/
+            - generic [ref=e14]: 
+            - text: Hacking
+        - listitem [ref=e15]:
+          - link " Bug Bounty" [ref=e16] [cursor=pointer]:
+            - /url: /tabs/bugbounty/
+            - generic [ref=e17]: 
+            - text: Bug Bounty
+        - listitem [ref=e18]:
+          - link " Acknowledgments" [ref=e19] [cursor=pointer]:
+            - /url: /tabs/acknowledgments/
+            - generic [ref=e20]: 
+            - text: Acknowledgments
+  - generic [ref=e21]:
+    - generic [ref=e22]:
+      - generic [ref=e23]:
+        - generic [ref=e25]:
+          - generic [ref=e27]:
+            - generic [ref=e28]:
+              - generic [ref=e29]:
+                - img "Daniel Ferreira" [ref=e32]
+                - generic "Active" [ref=e33]
+              - heading "Daniel Ferreira" [level=2] [ref=e34]
+              - generic [ref=e35]: "@ferreiraklet"
+              - generic [ref=e36]:
+                - generic [ref=e37]:
+                  - generic [ref=e38]: 
+                  - text: Bug Hunter
+                - generic [ref=e39]:
+                  - generic [ref=e40]: 
+                  - text: CTF Player
+                - generic [ref=e41]:
+                  - generic [ref=e42]: 
+                  - text: InfoSec
+              - generic [ref=e43]:
+                - link "" [ref=e44] [cursor=pointer]:
+                  - /url: https://github.com/ferreiraklet
+                  - generic [ref=e45]: 
+                - link "" [ref=e46] [cursor=pointer]:
+                  - /url: https://twitter.com/ferreiraklet
+                  - generic [ref=e47]: 
+                - link "" [ref=e48] [cursor=pointer]:
+                  - /url: https://www.linkedin.com/in/daniel-ferreira-8b204525a/
+                  - generic [ref=e49]: 
+                - link "" [ref=e50] [cursor=pointer]:
+                  - /url: https://hackerone.com/ferreiraklet_
+                  - generic [ref=e51]: 
+                - link "" [ref=e52] [cursor=pointer]:
+                  - /url: https://bugcrowd.com/ferreira
+                  - generic [ref=e53]: 
+                - link "" [ref=e54] [cursor=pointer]:
+                  - /url: https://app.intigriti.com/profile/ferreiraklet
+                  - generic [ref=e55]: 
+                - link "" [ref=e56] [cursor=pointer]:
+                  - /url: https://www.youtube.com/@ferreiraklet
+                  - generic [ref=e57]: 
+                - link "" [ref=e58] [cursor=pointer]:
+                  - /url: https://www.instagram.com/ferreiraklet
+                  - generic [ref=e59]: 
+            - generic [ref=e60]:
+              - generic [ref=e61]: Security Researcher
+              - heading "Breaking things to secure the web." [level=1] [ref=e63]:
+                - text: Breaking things
+                - text: to secure the web.
+              - paragraph [ref=e64]: Bug hunter specializing in web vulnerabilities — RCE, SSRF, SQL Injection, and beyond. Active across HackerOne, Bugcrowd, and major VDP programs worldwide.
+              - generic [ref=e66]:
+                - generic [ref=e67]:
+                  - generic [ref=e68]: 100+
+                  - generic [ref=e69]: Valid Reports
+                - generic [ref=e71]:
+                  - generic [ref=e72]: 25+
+                  - generic [ref=e73]: Programs
+                - generic [ref=e75]:
+                  - generic [ref=e76]: RCE · SSRF
+                  - generic [ref=e77]: Criticals
+              - generic [ref=e78]:
+                - link " Read Articles" [ref=e79] [cursor=pointer]:
+                  - /url: /tabs/hacking/
+                  - generic [ref=e80]: 
+                  - text: Read Articles
+                - link " Bug Bounty" [ref=e81] [cursor=pointer]:
+                  - /url: /tabs/bugbounty/
+                  - generic [ref=e82]: 
+                  - text: Bug Bounty
+          - generic [ref=e83]:
+            - generic [ref=e84]:
+              - generic [ref=e85]: 100+
+              - generic [ref=e86]: Valid Reports
+            - generic [ref=e87]:
+              - generic [ref=e88]: 25+
+              - generic [ref=e89]: Programs
+            - generic [ref=e90]:
+              - generic [ref=e91]: RCE / SSRF
+              - generic [ref=e92]: Critical Findings
+            - generic [ref=e93]:
+              - generic [ref=e94]: VDP & BBP
+              - generic [ref=e95]: Bug Bounty
+        - contentinfo [ref=e97]:
+          - generic [ref=e98]:
+            - paragraph [ref=e100]:
+              - text: © 2026
+              - link "ferreiraklet" [ref=e101] [cursor=pointer]:
+                - /url: https://twitter.com/ferreiraklet
+              - text: . Some rights reserved.
+            - paragraph [ref=e103]:
+              - text: Powered by
+              - link "Jekyll" [ref=e104] [cursor=pointer]:
+                - /url: https://jekyllrb.com
+              - text: with
+              - link "Chirpy" [ref=e105] [cursor=pointer]:
+                - /url: https://github.com/cotes2020/jekyll-theme-chirpy/
+              - text: theme.
+      - text: "# # # # # #"
+    - text: 
