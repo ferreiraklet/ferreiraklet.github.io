@@ -1,8 +1,0 @@
-[     395ms] Uncaught Error: SimpleJekyllSearch --- failed to get JSON (/assets/js/data/search.json)
-    at s (https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.7.3/dest/simple-jekyll-search.min.js:5:4094)
-    at <anonymous> (https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.7.3/dest/simple-jekyll-search.min.js:5:4482)
-    at <anonymous> (https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.7.3/dest/simple-jekyll-search.min.js:5:327)
-[    7924ms] Uncaught Error: SimpleJekyllSearch --- failed to get JSON (/assets/js/data/search.json)
-    at s (https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.7.3/dest/simple-jekyll-search.min.js:5:4094)
-    at <anonymous> (https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.7.3/dest/simple-jekyll-search.min.js:5:4482)
-    at <anonymous> (https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.7.3/dest/simple-jekyll-search.min.js:5:327)
