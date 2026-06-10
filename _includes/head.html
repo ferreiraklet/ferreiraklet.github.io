@@ -29,7 +29,7 @@
 .nav-avatar {
   height: 36px; width: 36px; border-radius: 50%;
   border: 2px solid rgba(240,112,32,0.5);
-  object-fit: cover; flex-shrink: 0;
+  object-fit: cover; object-position: center 15%; flex-shrink: 0;
   transition: border-color 0.3s, transform 0.3s;
 }
 .navbar-brand:hover .nav-avatar { border-color: #ff8c3a; transform: scale(1.08); }
@@ -99,6 +99,7 @@
 }
 .profile-avatar {
   width: 130px; height: 130px; border-radius: 50%; object-fit: cover;
+  object-position: center 15%;
   position: relative; z-index: 2; display: block;
   border: 3px solid rgba(240,112,32,0.55);
 }
