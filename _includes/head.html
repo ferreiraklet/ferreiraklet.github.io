@@ -15,6 +15,12 @@
 /* ===== Layout fix ===== */
 #main-wrapper { margin-left: 0 !important; }
 #topbar-wrapper { left: 0 !important; }
+/* Center content on all screen sizes (theme only centers ≤1199px with sidebar) */
+#main > div.row { justify-content: center !important; padding-left: 0 !important; }
+/* Remove asymmetric left-padding added by theme for sidebar layout */
+@media (min-width: 1200px) {
+  #main > div.row > .col-xl-8 { padding-left: 15px !important; padding-right: 15px !important; }
+}
 
 /* ===== NAVBAR ===== */
 #main-nav {
