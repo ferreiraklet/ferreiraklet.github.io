@@ -17,3 +17,5 @@ type: archives
 
 
 * Oracle On-Line Presence Security Contributors 2024 - https://www.oracle.com/security-alerts/cpujul2024.html
+
+* Telekom - https://www.telekom.com/en/company/data-privacy-and-security/news/acknowledgements-358300
